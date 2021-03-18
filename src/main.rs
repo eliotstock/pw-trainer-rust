@@ -1,8 +1,11 @@
 use std::env;
+use std::fs;
 
 extern crate bcrypt;
 
 use bcrypt::{DEFAULT_COST, hash, verify};
+
+const PW_HASH_FILE: &str = "./.pw-trainer";
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -19,11 +22,13 @@ fn main() {
         "set" => {
             let hash = hash(pw, DEFAULT_COST).unwrap();
 
-            println!("TODO: Put the hash in storage.");
+            // This works even if the file already exists.
+            fs::write(PW_HASH_FILE, hash)
+                .expect("Couldn't write hash file.");
         },
         "check" => {
-            // TODO: Get the hash of the pw from storage.
-            let hash = "sdfklskdjlc";
+            let hash = fs::read_to_string(PW_HASH_FILE)
+                .expect("No hash file found. Use \"set\" first.");
 
             let valid = verify(pw, &hash).unwrap();
 
