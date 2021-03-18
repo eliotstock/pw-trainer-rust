@@ -45,6 +45,7 @@ fn main() {
         },
         _ => {
             println!("Not an operation: {}.", op);
+            std::process::exit(1);
         }
     }
 }
