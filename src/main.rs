@@ -4,19 +4,24 @@ use std::fs;
 extern crate bcrypt;
 
 use bcrypt::{DEFAULT_COST, hash, verify};
+use std::io::{self, BufRead};
 
 const PW_HASH_FILE: &str = "./.pw-trainer";
 
 fn main() {
     let args: Vec<String> = env::args().collect();
 
-    if args.len() != 3 {
+    if args.len() != 2 {
         usage(&args[0]);
         std::process::exit(1);
     }
 
     let op = &args[1];
-    let pw = &args[2];
+
+    println!("Enter password:");
+
+    let stdin = io::stdin();
+    let pw = stdin.lock().lines().next().unwrap().unwrap();
 
     match op.as_str() {
         "set" => {
