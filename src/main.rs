@@ -56,5 +56,5 @@ fn main() {
 }
 
 fn usage(executable: &str) {
-    println!("Usage: {} [set|check] password", executable);
+    println!("Usage: {} [set|check]", executable);
 }
