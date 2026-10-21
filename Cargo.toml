@@ -1,10 +1,13 @@
 [package]
 name = "pw-trainer-rust"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Eliot Stock <1@eliotstock.com>"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+# Exact pins, deliberately not the newest releases. Cargo.lock is committed and pins
+# (with checksums) every transitive dependency; build with --locked.
 [dependencies]
-bcrypt = "0.9.0"
+bcrypt = "=0.15.1"
+rpassword = "=7.3.1"
